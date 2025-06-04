@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
-import { ExternalLink, Github, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useState } from 'react'; // Import de React et du hook useState
+import { ExternalLink, Github, ChevronDown, ChevronUp } from 'lucide-react'; // Import des icônes
 
+// Définition du type Project pour typer les projets
 type Project = {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  tags: string[];
-  githubUrl?: string;
-  status: 'finished' | 'ongoing';
-  details?: string;
+  id: number; // Identifiant unique du projet
+  title: string; // Titre du projet
+  description: string; // Description courte
+  image: string; // URL de l'image
+  tags: string[]; // Liste des technologies utilisées
+  githubUrl?: string; // Lien GitHub (optionnel)
+  status: 'finished' | 'ongoing'; // Statut du projet
+  details?: string; // Détails supplémentaires (optionnel)
 };
 
 const Projects: React.FC = () => {
+  // État pour filtrer entre projets terminés et en cours
   const [activeStatus, setActiveStatus] = useState<'finished' | 'ongoing'>('finished');
+  // État pour savoir quel projet est déplié (voir plus)
   const [expandedProject, setExpandedProject] = useState<number | null>(null);
   
+  // Liste des projets
   const projects: Project[] = [
     {
       id: 1,
@@ -121,15 +125,19 @@ Difficultés rencontrées et solutions
     }
   ];
 
+  // Filtre les projets selon le statut sélectionné
   const filteredProjects = projects.filter(project => project.status === activeStatus);
 
+  // Fonction pour ouvrir/fermer les détails d'un projet
   const toggleProjectDetails = (projectId: number) => {
     setExpandedProject(expandedProject === projectId ? null : projectId);
   };
 
   return (
+    // Section principale des projets
     <section id="projects" className="py-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4 md:px-6">
+        {/* Titre et description */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Mes Projets
@@ -141,6 +149,7 @@ Difficultés rencontrées et solutions
           </p>
         </div>
         
+        {/* Boutons pour filtrer les projets */}
         <div className="flex justify-center gap-4 mb-12">
           <button
             onClick={() => setActiveStatus('finished')}
@@ -164,12 +173,14 @@ Difficultés rencontrées et solutions
           </button>
         </div>
         
+        {/* Grille des projets */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
             <div 
               key={project.id} 
               className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg transform transition duration-300 hover:-translate-y-2 hover:shadow-xl"
             >
+              {/* Image du projet */}
               <div className="relative h-48 overflow-hidden">
                 <img 
                   src={project.image} 
@@ -179,6 +190,7 @@ Difficultés rencontrées et solutions
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-center">
                   <h3 className="text-white font-semibold text-lg">{project.title}</h3>
+                  {/* Lien GitHub si disponible */}
                   {project.githubUrl && (
                     <a 
                       href={project.githubUrl} 
@@ -192,10 +204,12 @@ Difficultés rencontrées et solutions
                   )}
                 </div>
               </div>
+              {/* Contenu du projet */}
               <div className="p-6">
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
                   {project.description}
                 </p>
+                {/* Tags/technos */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag, index) => (
                     <span 
@@ -206,6 +220,7 @@ Difficultés rencontrées et solutions
                     </span>
                   ))}
                 </div>
+                {/* Détails supplémentaires (voir plus) */}
                 {project.details && (
                   <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
                     <button
@@ -231,4 +246,4 @@ Difficultés rencontrées et solutions
   );
 };
 
-export default Projects;
+export default Projects; // Export du composant Projects
