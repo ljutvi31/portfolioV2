@@ -1,36 +1,44 @@
 import React from 'react';
 
+// Définition du type Skill pour typer les compétences
 type Skill = {
-  name: string;
-  level: number;
-  category: 'frontend' | 'backend' | 'tools';
-  icon?: string;
+  name: string;                 // Nom de la compétence
+  level: number;               // Niveau de compétence (en %)
+  category: 'frontend' | 'backend' | 'tools'; // Catégorie
+  icon?: string;               // Icône optionnelle (non utilisée ici)
 };
 
+// Composant SkillBar qui représente visuellement une compétence
 const SkillBar: React.FC<{ skill: Skill }> = ({ skill }) => {
   return (
     <div className="mb-6">
+      {/* Ligne avec le nom de la compétence à gauche et le niveau (%) à droite */}
       <div className="flex justify-between items-center mb-2">
         <span className="text-gray-800 dark:text-gray-200 font-medium">{skill.name}</span>
-       
+        <span className="text-sm text-gray-500 dark:text-gray-400">{skill.level}%</span>
       </div>
+
+      {/* Barre de fond grise */}
       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+        {/* Barre colorée animée, largeur dépendante du niveau */}
         <div 
-          className={`h-2.5 rounded-full ${
+          className={`h-2.5 rounded-full transition-all duration-500 ${
             skill.category === 'frontend' 
               ? 'bg-gradient-to-r from-blue-600 to-blue-400' 
               : skill.category === 'backend' 
                 ? 'bg-gradient-to-r from-teal-600 to-teal-400' 
                 : 'bg-gradient-to-r from-amber-600 to-amber-400'
           }`}
-       
+          style={{ width: `${skill.level}%` }} // ← Largeur dynamique en fonction du niveau
         ></div>
       </div>
     </div>
   );
 };
 
+// Composant principal Skills affichant toutes les compétences
 const Skills: React.FC = () => {
+  // Données des compétences Frontend
   const frontendSkills: Skill[] = [
     { name: 'HTML/CSS', level: 80, category: 'frontend' },
     { name: 'JavaScript', level: 60, category: 'frontend' },
@@ -38,12 +46,14 @@ const Skills: React.FC = () => {
     { name: 'Tailwind CSS', level: 70, category: 'frontend' },
   ];
 
+  // Données des compétences Backend
   const backendSkills: Skill[] = [
     { name: 'Node.js', level: 65, category: 'backend' },
     { name: 'Express', level: 65, category: 'backend' },
     { name: 'MongoDB', level: 70, category: 'backend' },
   ];
 
+  // Données des outils & technologies
   const toolsSkills: Skill[] = [
     { name: 'Git', level: 85, category: 'tools' },
     { name: 'Webpack', level: 70, category: 'tools' },
@@ -53,17 +63,21 @@ const Skills: React.FC = () => {
   return (
     <section id="skills" className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4 md:px-6">
+        {/* Titre de la section */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Mes Compétences
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-blue-800 to-teal-500 mx-auto mb-6"></div>
           <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-          J'ai acquis un ensemble diversifié de compétences tout au long de mon parcours de développeur. Voici un aperçu de mon expertise technique et de mes niveaux de compétence.
+            J'ai acquis un ensemble diversifié de compétences tout au long de mon parcours de développeur. Voici un aperçu de mon expertise technique et de mes niveaux de compétence.
           </p>
         </div>
-        
+
+        {/* Grille des catégories de compétences */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          {/* Bloc Frontend */}
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 transform transition duration-300 hover:-translate-y-2">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-full mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -77,7 +91,8 @@ const Skills: React.FC = () => {
               <SkillBar key={skill.name} skill={skill} />
             ))}
           </div>
-          
+
+          {/* Bloc Backend */}
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 transform transition duration-300 hover:-translate-y-2">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 rounded-full mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -91,7 +106,8 @@ const Skills: React.FC = () => {
               <SkillBar key={skill.name} skill={skill} />
             ))}
           </div>
-          
+
+          {/* Bloc Outils */}
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 transform transition duration-300 hover:-translate-y-2">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 rounded-full mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
