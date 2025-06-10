@@ -15,9 +15,9 @@ const Contact: React.FC = () => {
   const [submitMessage, setSubmitMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
   
   // 🔥 VOS VRAIES CLÉS EMAILJS CONFIGURÉES
-  const EMAILJS_SERVICE_ID = 'Ljutvi_portfolio';
-  const EMAILJS_TEMPLATE_ID = 'template_cdb9d9e';
-  const EMAILJS_PUBLIC_KEY = '12jqZRm5iVjdMBQDu';
+  const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
   
   const validate = () => {
     const newErrors: Record<string, string> = {};
