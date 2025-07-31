@@ -67,7 +67,7 @@ const About: React.FC = () => { // Déclaration du composant About
 
             {/* Lien pour télécharger le CV */}
             <a
-              href="/cv-Ljutvi.pdf"
+              href="/cv-ljutvi072025.pdf"
               download
               target="_blank"
               rel="noopener noreferrer"
